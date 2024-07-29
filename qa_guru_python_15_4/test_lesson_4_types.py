@@ -8,7 +8,6 @@ def test_greeting():
 
     output = f"Привет, {name}! Тебе {age} лет."
 
-    # Проверяем результат
     assert output == "Привет, Анна! Тебе 25 лет."
 
 
