@@ -3,9 +3,6 @@ import random
 
 
 def test_greeting():
-    """
-    Напишите программу, которая выводит на экран приветствие.
-    """
     name = "Анна"
     age = 25
 
@@ -16,10 +13,6 @@ def test_greeting():
 
 
 def test_rectangle():
-    """
-    Напишите программу, которая берет длину и ширину прямоугольника
-    и считает его периметр и площадь.
-    """
     a = 10
     b = 20
 
@@ -31,12 +24,10 @@ def test_rectangle():
 
     assert area == 200
 
+    print(f"area = {area} and perimeter = {perimeter}")
+
 
 def test_circle():
-    """
-    Напишите программу, которая берет радиус круга и выводит на экран его длину и площадь.
-    Используйте константу PI
-    """
     r = 23
 
     area = math.pi * r ** 2
@@ -47,16 +38,14 @@ def test_circle():
 
     assert length == 144.51326206513048
 
+    print(f"area = {area} and length = {length}")
+
 
 def test_random_list():
-    """
-    Создайте список из 10 случайных чисел от 1 до 100 (включая обе границы) и отсортируйте его по возрастанию.
-    """
-
     l = []
     # l = [2, 56, 89, 4, 0, 2, 7, 5, 46, 99]
-    for i in range(0, 10):
-        number = random.randint(0, 100)
+    for i in range(10):
+        number = random.randint(1, 100)
         l.append(number)
     l.sort()
 
@@ -65,9 +54,6 @@ def test_random_list():
 
 
 def test_unique_elements():
-    """
-    Удалите из списка все повторяющиеся элементы
-    """
     l = [1, 2, 3, 4, 5, 5, 5, 6, 7, 8, 8, 9, 10, 10]
 
     l = list(set(l))
@@ -77,11 +63,6 @@ def test_unique_elements():
 
 
 def test_dicts():
-    """
-    Создайте словарь из двух списков.
-    Используйте первый список как ключи, а второй - как значения.
-    Подсказка: используйте встроенную функцию zip.
-    """
     first = ["a", "b", "c", "d", "e"]
     second = [1, 2, 3, 4, 5]
 
