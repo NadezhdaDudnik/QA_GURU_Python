@@ -16,4 +16,4 @@ def test_negative_search():
     browser.element('[name="q"]').should(be.blank).type('vyfuf fib,jr rfr nfn7iijk,s ntcnbhjsfubnrs').press_enter()
     browser.element('[class="card-section"]').should(
         have.text('Your search - vyfuf fib,jr rfr nfn7iijk,s ntcnbhjsfubnrs - did not match any documents.')
-        )
+    )
