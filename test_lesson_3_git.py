@@ -4,7 +4,6 @@ from selene import (
     have,
 )
 
-
 def test_positive_search():
     browser.open('/ncr')
     browser.element('[name="q"]').should(be.blank).type('yashaka/selene').press_enter()
