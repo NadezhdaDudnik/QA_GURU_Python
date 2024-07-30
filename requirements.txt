@@ -1,2 +1,1 @@
-pytest==8.2.2
-selene==1.0.2
+pytest
