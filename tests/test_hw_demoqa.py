@@ -13,7 +13,7 @@ def test_registration_form():
     browser.element('#firstName').type('Nadezhda')
     browser.element('#lastName').type('Dudnik')
     browser.element('#userEmail').type('nadintest_test@mail.ru')
-    browser.element('[for="gender-radio-2"]').click()
+    browser.element('[name=gender][value=Female]+label').click()
     browser.element('#userNumber').type('8995114236')
     browser.element('#dateOfBirthInput').click()
     browser.element('.react-datepicker__year-select option[value="1986"]').click()
