@@ -2,7 +2,7 @@ import os
 from selene import (
     browser,
     command,
-    have,
+    have
 )
 
 
