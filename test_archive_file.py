@@ -1,4 +1,3 @@
-from typing import io
 from zipfile import ZipFile
 import csv
 
@@ -6,19 +5,18 @@ from pypdf import PdfReader
 from openpyxl import load_workbook
 
 from script_os import (
-    ARCHIVE_FILE
+    ARCHIVE_FILE,
+    FILES_DIR,
 )
 
 
-def normalize_text(
-        text
-        ):
+def normalize_text(text):
     return ' '.join(text.split())
 
 
 def test_archive_csv():
     with ZipFile(ARCHIVE_FILE, 'r') as zip_file:
-        with zip_file.open('test_task.csv') as csv_file:
+        with zip_file.open(FILES_DIR) as csv_file:
             csv_content = csv_file.read().decode('utf-8-sig')
             csvreader = list(csv.reader(csv_content.splitlines()))
             row_1 = csvreader[1]
@@ -28,7 +26,7 @@ def test_archive_csv():
 
 def test_xlsx():
     with ZipFile(ARCHIVE_FILE, 'r') as zip_file:
-        with zip_file.open('test_task.xlsx') as xlsx_file:
+        with zip_file.open(FILES_DIR) as xlsx_file:
             workbook = load_workbook(xlsx_file)
             sheet = workbook.active
             cell_text = sheet.cell(row=3, column=1).value
@@ -38,7 +36,7 @@ def test_xlsx():
 
 def test_pdf():
     with ZipFile(ARCHIVE_FILE, 'r') as zip_file:
-        with zip_file.open('test_task.pdf') as pdf_file:
+        with zip_file.open(FILES_DIR) as pdf_file:
             reader = PdfReader(pdf_file)
             page_text = reader.pages[1].extract_text()
 
