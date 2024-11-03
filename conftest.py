@@ -13,3 +13,8 @@ def product():
 @pytest.fixture
 def cart():
     return Cart()
+
+
+@pytest.fixture
+def another_product():
+    return Product("notebook", 150, "This is a notebook", 500)
