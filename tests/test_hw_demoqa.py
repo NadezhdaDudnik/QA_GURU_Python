@@ -1,42 +1,40 @@
-import os
-from selene import (
-    browser,
-    command,
-    have
-)
+from pages.registration_form import RegistrationPage
 
 
 def test_registration_form():
-    browser.open('/automation-practice-form')
-    browser.element('#fixedban').perform(command.js.remove)
-    browser.element('footer').perform(command.js.remove)
-    browser.element('#firstName').type('Nadezhda')
-    browser.element('#lastName').type('Dudnik')
-    browser.element('#userEmail').type('nadintest_test@mail.ru')
-    browser.element('[name=gender][value=Female]+label').click()
-    browser.element('#userNumber').type('8995114236')
-    browser.element('#dateOfBirthInput').click()
-    browser.element('.react-datepicker__year-select option[value="1986"]').click()
-    browser.element('.react-datepicker__month-select option[value="7"]').click()
-    browser.element('.react-datepicker__day.react-datepicker__day--002').click()
-    browser.element('#subjectsInput').type('Computer Science').press_tab()
-    browser.element('[for="hobbies-checkbox-1"]').click()
-    browser.element('#uploadPicture').send_keys(os.path.abspath('it.jpg'))
-    browser.element('#currentAddress').type('Moscow')
-    browser.element("#react-select-3-input").type('Haryana').press_enter()
-    browser.element('#react-select-4-input').type('Karnal').press_enter()
-    browser.element('#submit').click()
-    browser.element('.modal-content').element('table').all('tr').all('td').even.should(
-        have.exact_texts(
-            'Nadezhda Dudnik',
-            'nadintest_test@mail.ru',
-            'Female',
-            '8995114236',
-            '02 August,1986',
-            'Computer Science',
-            'Sports',
-            'it.jpg',
-            'Moscow',
-            'Haryana Karnal',
+    registration_page = RegistrationPage()
+
+    registration_page.open('/automation-practice-form')
+    registration_page.fill_first_name('Nadezhda')
+    registration_page.fill_last_name('Dudnik')
+    registration_page.fill_email('nadintest_test@mail.ru')
+    registration_page.fill_gender()
+    registration_page.fill_phone_number('8995114236')
+    registration_page.fill_date_of_birth('02', 8, 1986)
+    registration_page.select_subject('Computer Science')
+    registration_page.select_hobbies('Sports')
+    registration_page.upload_picture('it.jpg')
+    registration_page.fill_current_address('Moscow, Lenina steet, 9/7')
+    registration_page.fill_state('Uttar Pradesh')
+    registration_page.fill_city('Merrut')
+
+    registration_page.submit_form()
+
+    # проверки
+
+    registration_page.should_have_registered_user_with_data(
+        'Nadezhda',
+    'Dudnik',
+        'nadintest_test@mail.ru',
+        'Female',
+        '8995114236',
+        '1986',
+        'November',
+        '02',
+        'Computer Science',
+        'Sports',
+        'it.jpg',
+        'Moscow, Lenina steet, 9/7',
+        'Uttar Pradesh',
+        'Merrut'
         )
-    )
