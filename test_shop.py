@@ -128,7 +128,8 @@ class TestCart:
         cart.add_product(another_product, 2)
 
         expected_total_price = (99.99 * 3) + (149.49 * 2)
-        assert abs(cart.get_total_price() - expected_total_price) < 0.01
+        assert expected_total_price == pytest.approx(cart.get_total_price())
+        #Только: для приблизительных сравнений _обычно_ в библиотеках ассертов есть отдельные ассерты. Это можно выгуглить (python assert with precision).
 
     def test_buy_products(self,
             cart,
