@@ -7,13 +7,20 @@ from selene import (
     have,
 )
 
+from data.user_info import User
+
+
 class RegistrationPage:
 
     def open(
             self,
-            value
-            ):
-        browser.open(value)
+            url
+    ):
+        browser.open(url)
+
+    def remove_banners_and_footer(
+            self
+    ):
         browser.driver.execute_script("$('#fixedban').remove()")
         browser.driver.execute_script("$('footer').remove()")
 
@@ -36,9 +43,10 @@ class RegistrationPage:
         browser.element('#userEmail').type(value)
 
     def fill_gender(
-            self
+            self,
+            gender_value
     ):
-        browser.element('[name=gender][value=Female]+label').click()
+        browser.element(f'[name=gender][value={gender_value}]+label').click()
 
     def fill_phone_number(
             self,
@@ -52,6 +60,7 @@ class RegistrationPage:
             month,
             year
     ):
+        day = f'0{day}' if len(day) == 1 else day
         browser.element('#dateOfBirthInput').click()
         browser.element('.react-datepicker__year-select').type(year)
         browser.element('.react-datepicker__month-select').type(month)
@@ -63,7 +72,7 @@ class RegistrationPage:
     ):
         browser.element('#subjectsInput').type(value).press_enter()
 
-    def select_hobbies(
+    def select_hobby(
             self,
             value
     ):
@@ -100,37 +109,42 @@ class RegistrationPage:
     ):
         browser.element('#submit').click()
 
+    def register(
+            self,
+            user: User
+    ):
+        self.fill_first_name(user.first_name)
+        self.fill_last_name(user.last_name)
+        self.fill_email(user.email)
+        self.fill_gender(user.gender)
+        self.fill_phone_number(user.phone_number)
+        self.fill_date_of_birth(user.date_of_birth_day, user.date_of_birth_month, user.date_of_birth_year)
+        self.select_subject(user.subject)
+        self.select_hobby(user.hobby)
+        self.upload_picture(user.picture)
+        self.fill_current_address(user.address)
+        self.fill_state(user.state)
+        self.fill_city(user.city)
+        self.submit_form()
+
     def should_have_registered_user_with_data(
             self,
-            first_name,
-            last_name,
-            email,
-            gender,
-            phone_number,
-            birth_year,
-            birth_month,
-            birth_day,
-            subjects,
-            hobbies,
-            picture_name,
-            current_address,
-            state,
-            city
+            user: User
     ):
-        browser.element('table').should(be.visible)
+        browser.element('//table').should(be.visible)
         browser.element('//table//td[text()="Student Name"]/../td[2]').should(
-            have.exact_text(f'{first_name} {last_name}')
+            have.exact_text(f'{user.first_name} {user.last_name}')
         )
-        browser.element('//table//td[contains(text(),"Student Email")]/../td[2]').should(have.text(email))
-        browser.element('//table//td[contains(text(),"Gender")]/../td[2]').should(have.exact_text(gender))
-        browser.element('//table//td[contains(text(),"Mobile")]/../td[2]').should(have.exact_text(phone_number))
+        browser.element('//table//td[contains(text(),"Student Email")]/../td[2]').should(have.text(user.email))
+        browser.element('//table//td[contains(text(),"Gender")]/../td[2]').should(have.exact_text(user.gender))
+        browser.element('//table//td[contains(text(),"Mobile")]/../td[2]').should(have.exact_text(user.phone_number))
         browser.element('//table//td[text()="Date of Birth"]/../td[2]').should(
-            have.exact_text(f'{birth_day} {birth_month},{birth_year}')
+            have.exact_text(f'{user.date_of_birth_day} {user.date_of_birth_month},{user.date_of_birth_year}')
         )
-        browser.element('//table//td[contains(text(),"Subjects")]/../td[2]').should(have.text(subjects))
-        browser.element('//table//td[contains(text(),"Hobbies")]/../td[2]').should(have.text(hobbies))
-        browser.element('//table//td[contains(text(),"Picture")]/../td[2]').should(have.text(picture_name))
-        browser.element('//table//td[contains(text(),"Address")]/../td[2]').should(have.text(current_address))
+        browser.element('//table//td[contains(text(),"Subjects")]/../td[2]').should(have.text(user.subject))
+        browser.element('//table//td[contains(text(),"Hobbies")]/../td[2]').should(have.text(user.hobby))
+        browser.element('//table//td[contains(text(),"Picture")]/../td[2]').should(have.text(user.picture))
+        browser.element('//table//td[contains(text(),"Address")]/../td[2]').should(have.text(user.address))
         browser.element('//table//td[text()="State and City"]/../td[2]').should(
-            have.exact_text(f'{state} {city}')
+            have.exact_text(f'{user.state} {user.city}')
         )
