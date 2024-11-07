@@ -15,3 +15,5 @@ def browser_data():
     yield
 
     browser.quit()
+
+
