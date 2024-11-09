@@ -17,10 +17,6 @@ class RegistrationPage:
             url
     ):
         browser.open(url)
-
-    def remove_banners_and_footer(
-            self
-    ):
         browser.driver.execute_script("$('#fixedban').remove()")
         browser.driver.execute_script("$('footer').remove()")
 
