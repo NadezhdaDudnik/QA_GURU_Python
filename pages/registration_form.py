@@ -163,6 +163,6 @@ class RegistrationPage:
     @allure.step('Закрыть таблицу с проверенными данными')
     def close_table(
             self
-            ):
+    ):
         browser.element('#closeLargeModal').click()
         browser.element('#example-modal-sizes-title-lg').should(be.not_.visible)

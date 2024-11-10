@@ -10,7 +10,7 @@ from data.user_info import user_data
 @allure.label('owner', 'nv.dudnik')
 @allure.feature('Форма регистрации для пользователя')
 @allure.story('Заполнение и отправка данных для регистрации пользователя')
-@allure.link('https://demoqa.com/automation-practice-form', name='Testing form + allure + jenkins')
+@allure.link('https://demoqa.com/automation-practice-form', name='Testing form + allure + jenkins + selenoid')
 def test_registration_form():
     registration_page = RegistrationPage()
 
