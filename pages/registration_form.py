@@ -7,6 +7,7 @@ from selene import (
     have,
 )
 
+import tests
 from data.user_info import User
 
 
@@ -82,12 +83,15 @@ class RegistrationPage:
     ):
         browser.element(f'//label[text()="{value}"]').click()
 
-    @allure.step('Загрузить картинку')
+    @allure.step('Загрузить фото-картинку')
     def upload_picture(
             self,
-            file_name
+            picture_name
     ):
-        browser.element('#uploadPicture').send_keys(os.path.abspath('../resources/it.jpg'))
+        picture_path = os.path.abspath(
+            os.path.join(os.path.dirname(tests.__file__), 'resources', picture_name)
+        )
+        browser.element('#uploadPicture').send_keys(picture_path)
 
     @allure.step('Заполнить поле "Current Address"')
     def fill_current_address(

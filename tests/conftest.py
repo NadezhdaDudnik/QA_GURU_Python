@@ -19,8 +19,8 @@ def browser_driver():
     selenoid_login = os.getenv("SELENOID_LOGIN")
     selenoid_pass = os.getenv("SELENOID_PASS")
     selenoid_url = os.getenv("SELENOID_URL")
-    browser.config.window_height = 1080
-    browser.config.window_width = 1920
+    browser.config.window_height = 1920
+    browser.config.window_width = 1080
     browser.config.base_url = "https://demoqa.com"
     options = Options()
 
